@@ -1,0 +1,511 @@
+# Node.js / JavaScript
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Environnement de développement
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Distribution / Build
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# NestJS
+*.js
+*.js.map
+*.d.ts
+
+# TypeScript
+*.ts.map
+*.js.map
+
+# IDEs et éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.iml
+.project
+.classpath
+.settings/
+*.code-workspace
+
+# OS spécifique
+Thumbs.db
+.DS_Store
+*.bak
+*.tmp
+*.temp
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Tests
+coverage/
+.nyc_output/
+*.lcov
+*.test.js
+*.spec.js
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose*.yml
+.docker/
+
+# PostgreSQL
+*.sql
+*.dump
+*.backup
+pgdata/
+postgres-data/
+
+# Secrets et clés
+*.pem
+*.key
+*.crt
+*.csr
+secrets/
+certificates/
+.ssl/
+.ssh/
+
+# Dépendances
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+*.tgz
+*.tar.gz
+*.zip
+
+# Fichiers temporaires
+tmp/
+temp/
+*.swp
+*.swo
+*~
+*.orig
+*.rej
+
+# Archives de base de données
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# Rapports et métriques
+*.xlsx
+*.xls
+*.csv
+*.pdf
+*.docx
+
+# Configuration de l'environnement
+.env
+.env.*
+!.env.example
+
+# Modules NestJS générés
+src/**/*.generated.ts
+
+# Profilage
+*.cpuprofile
+*.heapsnapshot
+
+# Variables de build
+.env.build
+.env.production
+
+# Migrations
+src/migrations/*.js
+src/migrations/*.d.ts
+
+# Docs générés
+docs/
+apidoc/
+swagger.json
+
+# Redis
+dump.rdb
+appendonly.aof
+
+# Backup files
+*.backup
+*.old
+*.orig
+
+# SGBD local
+*.local.sqlite
+*.local.db
+
+# CLI et outils
+.npmrc
+.yarnrc
+.yarn/
+.pnp.*
+.pnp.js
+.eslintcache
+.stylelintcache
+.prettiercache
+
+# Workspace
+*.workspace
+*.code-workspace
+
+# Tests de performance
+loadtest/
+artillery/
+
+# Mail et notifications
+*.eml
+*.msg
+
+# Certificats SSL/TLS
+*.crt
+*.key
+*.csr
+*.p12
+*.pfx
+
+# Fichiers de configuration sensibles
+config.local.json
+config.local.yaml
+config.local.yml
+
+# Fichiers de cache
+.cache/
+.parcel-cache/
+.nuxt/
+.output/
+
+# Fichiers de build d'assets
+public/assets/
+static/assets/
+
+# Fichiers spécifiques à NestJS
+ormconfig.json
+ormconfig.js
+
+# Fichiers de migration auto-générés
+src/database/migrations/*.ts
+!src/database/migrations/*.example.ts
+
+# Fichiers de données
+*.data
+*.dat
+*.json.backup
+
+# Fichiers de session
+session-*.json
+sessions/
+
+# Fichiers de téléchargement
+uploads/
+downloads/
+*.download
+*.part
+
+# Fichiers de logs d'application
+app-*.log
+error-*.log
+access-*.log
+
+# Fichiers de monitoring
+*.metrics
+*.trace
+
+# Fichiers de configuration de base de données
+*.db.config
+*.db.connection
+
+# Fichiers de dépendances globales
+global.d.ts
+!src/**/*.d.ts
+
+# Fichiers de test
+*.test.ts
+*.spec.ts
+!src/**/*.test.ts
+!src/**/*.spec.ts
+coverage/
+test-reports/
+junit.xml
+
+# Fichiers d'analyse de code
+.eslintrc.json
+.prettierrc
+.stylelintrc
+.editorconfig
+
+# Fichiers de script
+*.sh
+*.bat
+*.ps1
+!scripts/*.example.sh
+
+# Fichiers de déploiement
+deploy/
+k8s/
+helm/
+*.kubeconfig
+
+# Fichiers d'environnement de staging
+.staging.env
+*.staging.env
+
+# Fichiers de cache de base de données
+*.idb
+*.blob
+
+# Fichiers de log de base de données
+postgresql.log
+mysql.log
+mongodb.log
+
+# Fichiers de configuration d'application
+application.yml
+application.yaml
+application.properties
+!application.example.yml
+
+# Fichiers de clé SSH
+*.pem
+*.ppk
+*.pub
+.ssh/
+
+# Fichiers de certificat AWS
+*.pem
+*.cer
+*.crt
+*.key
+*.csr
+*.p12
+*.pfx
+
+# Fichiers de configuration AWS
+.aws/
+credentials
+config
+
+# Fichiers de configuration GCP
+.gcloud/
+google-credentials.json
+*.json.gpg
+
+# Fichiers de configuration Azure
+.azure/
+*.azure
+
+# Fichiers de configuration Heroku
+.heroku/
+*.heroku
+
+# Fichiers de configuration Netlify
+.netlify/
+*.netlify
+
+# Fichiers de configuration Vercel
+.vercel/
+*.vercel
+
+# Fichiers de configuration Cloudflare
+.cloudflare/
+*.cloudflare
+
+# Fichiers de configuration DigitalOcean
+.digitalocean/
+*.digitalocean
+
+# Fichiers de configuration Firebase
+.firebase/
+*.firebase
+
+# Fichiers de configuration Supabase
+.supabase/
+*.supabase
+
+# Fichiers de configuration de monitoring
+.datadog/
+*.datadog
+.newrelic/
+*.newrelic
+.sentry/
+*.sentry
+
+# Fichiers de configuration de logging
+.fluentd/
+*.fluentd
+.logstash/
+*.logstash
+
+# Fichiers de configuration de CI/CD
+.gitlab-ci.yml
+.github/
+azure-pipelines.yml
+.travis.yml
+.circleci/
+.jenkins/
+.drone.yml
+.gitlab/
+.husky/
+.commitlintrc.yml
+
+# Fichiers de configuration de sécurité
+.snyk/
+*.snyk
+.trivy/
+*.trivy
+.grype/
+*.grype
+
+# Fichiers de configuration de performance
+.artillery/
+*.artillery
+.k6/
+*.k6
+.loadtest/
+*.loadtest
+
+# Fichiers de configuration de documentation
+.typedoc/
+*.typedoc
+.jsdoc/
+*.jsdoc
+.docusaurus/
+*.docusaurus
+.vitepress/
+*.vitepress
+
+# Fichiers de configuration de graphQL
+.graphql/
+*.graphql
+.apollo/
+*.apollo
+.hasura/
+*.hasura
+
+# Fichiers de configuration de WebSocket
+.socketio/
+*.socketio
+.ws/
+*.ws
+
+# Fichiers de configuration de streaming
+.kafka/
+*.kafka
+.rabbitmq/
+*.rabbitmq
+.redis/
+*.redis
+.elasticsearch/
+*.elasticsearch
+
+# Fichiers de configuration de cache
+.memcached/
+*.memcached
+.redis/
+*.redis
+
+# Fichiers de configuration de search
+.elastic/
+*.elastic
+.meilisearch/
+*.meilisearch
+.typesense/
+*.typesense
+
+# Fichiers de configuration de stockage
+.s3/
+*.s3
+.gcs/
+*.gcs
+.azure-storage/
+*.azure-storage
+
+# Fichiers de configuration de notifications
+.sendgrid/
+*.sendgrid
+.twilio/
+*.twilio
+.fcm/
+*.fcm
+.apns/
+*.apns
+
+# Fichiers de configuration de paiement
+.stripe/
+*.stripe
+.paypal/
+*.paypal
+.square/
+*.square
+.adyen/
+*.adyen
+
+# Fichiers de configuration d'authentification
+.auth0/
+*.auth0
+.okta/
+*.okta
+.keycloak/
+*.keycloak
+.cognito/
+*.cognito
+
+# Fichiers de configuration de fonction serverless
+.serverless/
+*.serverless
+.lambda/
+*.lambda
+.faas/
+*.faas
+
+# Fichiers de configuration d'orchestration
+.kubernetes/
+*.kubernetes
+.docker/
+*.docker
+.nomad/
+*.nomad
+.marathon/
+*.marathon
+
+# Fichiers de configuration de service mesh
+.istio/
+*.istio
+.linkerd/
+*.linkerd
+.consul/
+*.consul
+
+# Fichiers de configuration de CI/CD spécifiques
+.github/workflows/
+.gitlab/ci/
+.azure-pipelines/
+.circleci/config.yml
+.drone.yml
+.jenkinsfile
+.gitlab-ci.yml
+.travis.yml
+.buildkite/
+.teamcity/
+.wercker/
+.semaphore/
+.appveyor.yml
+.bitbucket-pipelines.yml
+.gitlab-ci.yml
