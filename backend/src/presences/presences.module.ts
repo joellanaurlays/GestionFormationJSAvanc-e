@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
-import { PresencesController } from './presences.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Presence } from './entities/presence.entity';
 import { PresencesService } from './presences.service';
+import { PresencesController } from './presences.controller';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Presence])],
+  providers: [PresencesService],
   controllers: [PresencesController],
-  providers: [PresencesService]
+  exports: [PresencesService],
 })
 export class PresencesModule {}
