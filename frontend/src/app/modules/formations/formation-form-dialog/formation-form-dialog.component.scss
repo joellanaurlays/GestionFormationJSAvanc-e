@@ -1,0 +1,50 @@
+@import '../../../../styles.scss';
+
+.full-width {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  
+  .half-width {
+    flex: 1;
+  }
+}
+
+.formateur-email {
+  color: #999;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+mat-dialog-content {
+  min-width: 480px;
+  max-height: 70vh;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  
+  button {
+    min-width: 120px;
+    
+    mat-spinner {
+      display: inline-block;
+      margin: 0 8px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  mat-dialog-content {
+    min-width: auto;
+  }
+}

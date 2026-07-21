@@ -22,7 +22,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Email</mat-label>
-                <input matInput formControlName="email" type="email" placeholder="exemple@email.com">
+                <input matInput formControlName="email" type="email" 
+                       placeholder="exemple@email.com"
+                       [class.has-value]="loginForm.get('email')?.value">
                 <mat-icon matPrefix>email</mat-icon>
                 <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
                   L'email est requis
@@ -34,7 +36,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Mot de passe</mat-label>
-                <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+                <input matInput formControlName="password" 
+                       [type]="hidePassword ? 'password' : 'text'"
+                       [class.has-value]="loginForm.get('password')?.value">
                 <mat-icon matPrefix>lock</mat-icon>
                 <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
                   <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -68,6 +72,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     </div>
   `,
   styles: [`
+    @import '../../../../styles.scss';
+    
     .login-container {
       display: flex;
       justify-content: center;
@@ -84,6 +90,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
           border-radius: 16px;
           padding: 32px;
           box-shadow: 0 20px 60px rgba(101, 126, 71, 0.2);
+          background: white;
           
           .login-header {
             text-align: center;
@@ -122,7 +129,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
           
           .full-width {
             width: 100%;
-            margin-bottom: 16px;
+            margin-bottom: 4px;
           }
           
           .btn-login {
@@ -130,10 +137,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
             padding: 12px;
             font-size: 16px;
             font-weight: 500;
+            margin-top: 8px;
             background: linear-gradient(135deg, #657E47, #6C9B76) !important;
             color: white !important;
             
-            &:hover {
+            &:hover:not(:disabled) {
               transform: translateY(-2px);
               box-shadow: 0 8px 25px rgba(101, 126, 71, 0.3);
             }
@@ -141,6 +149,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
             &:disabled {
               opacity: 0.7;
               cursor: not-allowed;
+              transform: none;
             }
           }
           
@@ -212,7 +221,7 @@ export class LoginComponent {
       },
       error: (error) => {
         this.isLoading = false;
-        this.snackBar.open(error.error?.message || '❌ Erreur de connexion', 'Fermer', { 
+        this.snackBar.open(error.error?.message || ' Erreur de connexion', 'Fermer', { 
           duration: 5000,
           panelClass: ['error-snackbar']
         });

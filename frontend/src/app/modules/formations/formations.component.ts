@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { FormationService } from '../../core/services/formation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormationService } from '../../core/services/formation.service';
 import { AuthService } from '../../core/services/auth.service';
+import { FormationFormDialogComponent } from './formation-form-dialog/formation-form-dialog.component';
 
 @Component({
   selector: 'app-formations',
@@ -16,7 +17,8 @@ import { AuthService } from '../../core/services/auth.service';
           <mat-icon>event_note</mat-icon>
           Gestion des Formations
         </h1>
-        <button mat-raised-button color="primary" (click)="openFormModal()" *ngIf="hasRole(['administrateur', 'formateur'])">
+        <button mat-raised-button color="primary" (click)="openForm()" 
+                *ngIf="hasRole(['administrateur', 'formateur'])">
           <mat-icon>add</mat-icon>
           Nouvelle formation
         </button>
@@ -26,9 +28,12 @@ import { AuthService } from '../../core/services/auth.service';
         <mat-card-content>
           <div class="table-container">
             <table mat-table [dataSource]="dataSource" matSort class="custom-table">
+              <!-- Colonnes -->
               <ng-container matColumnDef="titre">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Titre</th>
-                <td mat-cell *matCellDef="let formation">{{ formation.titre }}</td>
+                <td mat-cell *matCellDef="let formation">
+                  <strong>{{ formation.titre }}</strong>
+                </td>
               </ng-container>
               
               <ng-container matColumnDef="formateur">
@@ -51,26 +56,24 @@ import { AuthService } from '../../core/services/auth.service';
               <ng-container matColumnDef="statut">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
                 <td mat-cell *matCellDef="let formation">
-                  <span class="badge" [class.badge-success]="formation.statut === 'terminee'"
-                                    [class.badge-warning]="formation.statut === 'planifiee'"
-                                    [class.badge-info]="formation.statut === 'en_cours'">
+                  <mat-chip [color]="getStatusColor(formation.statut)" selected>
                     {{ formation.statut }}
-                  </span>
+                  </mat-chip>
                 </td>
               </ng-container>
               
               <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Actions</th>
                 <td mat-cell *matCellDef="let formation">
-                  <button mat-icon-button color="primary" (click)="viewFormation(formation)">
+                  <button mat-icon-button color="primary" [routerLink]="['/formations', formation.id]" matTooltip="Voir">
                     <mat-icon>visibility</mat-icon>
                   </button>
-                  <button mat-icon-button color="accent" (click)="editFormation(formation)" 
-                          *ngIf="hasRole(['administrateur', 'formateur'])">
+                  <button mat-icon-button color="accent" (click)="openForm(formation)" 
+                          *ngIf="hasRole(['administrateur', 'formateur'])" matTooltip="Modifier">
                     <mat-icon>edit</mat-icon>
                   </button>
                   <button mat-icon-button color="warn" (click)="deleteFormation(formation)" 
-                          *ngIf="hasRole(['administrateur'])">
+                          *ngIf="hasRole(['administrateur'])" matTooltip="Supprimer">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </td>
@@ -80,13 +83,15 @@ import { AuthService } from '../../core/services/auth.service';
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
             
-            <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons></mat-paginator>
           </div>
         </mat-card-content>
       </mat-card>
     </div>
   `,
   styles: [`
+    @import '../../../styles.scss';
+    
     .formations-container {
       padding: 20px;
       
@@ -95,13 +100,16 @@ import { AuthService } from '../../core/services/auth.service';
         justify-content: space-between;
         align-items: center;
         margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
         
         .page-title {
           display: flex;
           align-items: center;
           gap: 12px;
-          color: #657E47;
+          color: $color-chalet;
           font-weight: 500;
+          margin: 0;
           
           mat-icon {
             font-size: 32px;
@@ -122,9 +130,9 @@ export class FormationsComponent implements OnInit {
 
   constructor(
     private formationService: FormationService,
+    private authService: AuthService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar,
-    private authService: AuthService
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -132,10 +140,15 @@ export class FormationsComponent implements OnInit {
   }
 
   loadFormations() {
-    this.formationService.findAll().subscribe(data => {
-      this.dataSource.data = data;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    this.formationService.findAll().subscribe({
+      next: (data) => {
+        this.dataSource.data = data;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: () => {
+        this.snackBar.open('Erreur lors du chargement', 'Fermer', { duration: 3000 });
+      }
     });
   }
 
@@ -143,20 +156,33 @@ export class FormationsComponent implements OnInit {
     return this.authService.hasAnyRole(roles);
   }
 
-  openFormModal() {
-    // Implémenter le dialogue de création
+  getStatusColor(status: string): string {
+    const colors: {[key: string]: string} = {
+      'planifiee': 'primary',
+      'en_cours': 'accent',
+      'terminee': 'primary',
+      'annulee': 'warn'
+    };
+    return colors[status] || 'primary';
   }
 
-  viewFormation(formation: any) {
-    // Implémenter la vue
-  }
+  openForm(formation?: any) {
+    const dialogRef = this.dialog.open(FormationFormDialogComponent, {
+      width: '550px',
+      data: formation || null,
+      disableClose: true
+    });
 
-  editFormation(formation: any) {
-    // Implémenter l'édition
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadFormations();
+      }
+    });
   }
 
   deleteFormation(formation: any) {
-    if (confirm(`Supprimer la formation "${formation.titre}" ?`)) {
+    const confirmDelete = confirm(`Supprimer la formation "${formation.titre}" ?`);
+    if (confirmDelete) {
       this.formationService.delete(formation.id).subscribe({
         next: () => {
           this.snackBar.open('Formation supprimée', 'Fermer', { duration: 3000 });

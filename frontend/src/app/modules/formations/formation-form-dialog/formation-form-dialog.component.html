@@ -1,0 +1,88 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Modifier' : 'Créer' }} une formation</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="formationForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Titre de la formation</mat-label>
+      <input matInput formControlName="titre" placeholder="Ex: Formation NestJS">
+      <mat-error *ngIf="formationForm.get('titre')?.hasError('required')">
+        Le titre est requis
+      </mat-error>
+      <mat-error *ngIf="formationForm.get('titre')?.hasError('minlength')">
+        Minimum 3 caractères
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="3" 
+                placeholder="Décrivez la formation..."></textarea>
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Date de début</mat-label>
+        <input matInput [matDatepicker]="pickerDebut" formControlName="dateDebut">
+        <mat-datepicker-toggle matSuffix [for]="pickerDebut"></mat-datepicker-toggle>
+        <mat-datepicker #pickerDebut></mat-datepicker>
+        <mat-error *ngIf="formationForm.get('dateDebut')?.hasError('required')">
+          Date requise
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Date de fin</mat-label>
+        <input matInput [matDatepicker]="pickerFin" formControlName="dateFin">
+        <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFin></mat-datepicker>
+        <mat-error *ngIf="formationForm.get('dateFin')?.hasError('required')">
+          Date requise
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Lieu</mat-label>
+      <input matInput formControlName="lieu" placeholder="Ex: En ligne, Salle A, ...">
+      <mat-error *ngIf="formationForm.get('lieu')?.hasError('required')">
+        Le lieu est requis
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Formateur</mat-label>
+      <mat-select formControlName="formateurId">
+        <mat-option *ngFor="let formateur of formateurs" [value]="formateur.id">
+          {{ formateur.prenom }} {{ formateur.nom }} 
+          <span class="formateur-email">({{ formateur.email }})</span>
+        </mat-option>
+        <mat-option *ngIf="formateurs.length === 0" disabled>
+          Aucun formateur disponible
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formationForm.get('formateurId')?.hasError('required')">
+        Un formateur est requis
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Statut</mat-label>
+      <mat-select formControlName="statut">
+        <mat-option value="planifiee">Planifiée</mat-option>
+        <mat-option value="en_cours">En cours</mat-option>
+        <mat-option value="terminee">Terminée</mat-option>
+        <mat-option value="annulee">Annulée</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="onCancel()">Annuler</button>
+  <button mat-raised-button color="primary" type="submit" 
+          (click)="onSubmit()" 
+          [disabled]="formationForm.invalid || isLoading">
+    <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+    <span *ngIf="!isLoading">{{ isEdit ? 'Modifier' : 'Créer' }}</span>
+  </button>
+</mat-dialog-actions>
