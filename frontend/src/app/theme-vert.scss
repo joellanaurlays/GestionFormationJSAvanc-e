@@ -1,0 +1,80 @@
+@use '@angular/material' as mat;
+
+// Palette de couleurs verte
+$color-aquadulce: #6C9B76;
+$color-aroma: #97C49E;
+$color-winter-mist: #CDE8D4;
+$color-tarragon: #BAD17A;
+$color-antique-moss: #80A32F;
+$color-chalet: #657E47;
+
+// Créer la palette primary
+$primary-palette: (
+  50: #E8F5E9,
+  100: #CDE8D4,
+  200: #97C49E,
+  300: #6C9B76,
+  400: #80A32F,
+  500: #657E47,
+  600: #4CAF50,
+  700: #388E3C,
+  800: #2E7D32,
+  900: #1B5E20,
+  contrast: (
+    50: rgba(0,0,0,0.87),
+    100: rgba(0,0,0,0.87),
+    200: rgba(0,0,0,0.87),
+    300: rgba(0,0,0,0.87),
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  )
+);
+
+// Créer la palette accent
+$accent-palette: (
+  50: #F1F8E9,
+  100: #DCE8C8,
+  200: #BAD17A,
+  300: #A5C963,
+  400: #8DB84A,
+  500: #7AA832,
+  600: #68982A,
+  700: #567822,
+  800: #45601A,
+  900: #344812,
+  contrast: (
+    50: rgba(0,0,0,0.87),
+    100: rgba(0,0,0,0.87),
+    200: rgba(0,0,0,0.87),
+    300: rgba(0,0,0,0.87),
+    400: rgba(0,0,0,0.87),
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  )
+);
+
+// Créer la palette warn
+$warn-palette: mat.$red-palette;
+
+// Définir le thème
+$primary: mat.define-palette($primary-palette, 500);
+$accent: mat.define-palette($accent-palette, 500);
+$warn: mat.define-palette($warn-palette);
+
+$theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  ),
+  density: 0,
+));
+
+@include mat.all-component-themes($theme);

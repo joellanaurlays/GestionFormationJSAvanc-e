@@ -1,0 +1,81 @@
+.app-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #657E47, #6C9B76) !important;
+  color: white !important;
+  
+  .app-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    
+    mat-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  .spacer {
+    flex: 1;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    .role-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      text-transform: capitalize;
+    }
+  }
+}
+
+.sidenav-container {
+  margin-top: 64px;
+  height: calc(100vh - 64px);
+  
+  .sidenav {
+    width: 280px;
+    background: white;
+    border-right: 1px solid #e8f0e8;
+    
+    .sidenav-header {
+      padding: 24px 16px;
+      background: linear-gradient(135deg, #657E47, #6C9B76);
+      color: white;
+      
+      h3 {
+        margin: 0;
+        font-weight: 500;
+      }
+    }
+    
+    .mat-nav-list {
+      .mat-mdc-list-item {
+        &.active {
+          background: #CDE8D4;
+          border-left: 4px solid #657E47;
+        }
+        
+        &:hover {
+          background: #CDE8D4;
+        }
+      }
+    }
+  }
+  
+  .content {
+    padding: 24px;
+    background: #f5f7f5;
+    min-height: calc(100vh - 88px);
+  }
+}
